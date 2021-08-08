@@ -22,7 +22,7 @@
 22    <uses-sdk
 23        android:minSdkVersion="21"
 23-->C:\Users\kapx3\AndroidStudioProjects\watchface\4-ambient\src\main\AndroidManifest.xml
-24        android:targetSdkVersion="25" />
+24        android:targetSdkVersion="28" />
 24-->C:\Users\kapx3\AndroidStudioProjects\watchface\4-ambient\src\main\AndroidManifest.xml
 25
 26    <uses-feature android:name="android.hardware.type.watch" />

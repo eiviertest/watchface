@@ -20,6 +20,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -77,6 +79,10 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             }
         };
 
+        //Alex
+        private Bitmap mBackgroundBitmap;
+        //Alex
+
         private boolean mRegisteredTimeZoneReceiver = false;
 
         private static final float STROKE_WIDTH = 3f;
@@ -100,7 +106,13 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onCreate(SurfaceHolder holder) {
+
             super.onCreate(holder);
+
+            //Alex
+            mBackgroundBitmap = BitmapFactory
+                    .decodeResource(getResources(), R.drawable.custom_background);
+            //Alex
 
             setWatchFaceStyle(new WatchFaceStyle.Builder(MyWatchFaceService.this).build());
 
@@ -162,6 +174,13 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mHourHandLength = mCenterX - 80;
             mMinuteHandLength = mCenterX - 40;
             mSecondHandLength = mCenterX - 20;
+
+            //Alex
+            mScale = ((float) width) / (float) mBackgroundBitmap.getWidth();
+            mBackgroundBitmap = Bitmap.createScaledBitmap
+                    (mBackgroundBitmap, (int)(mBackgroundBitmap.getWidth() * mScale),
+                            (int)(mBackgroundBitmap.getHeight() * mScale), true);
+            //Alex
         }
 
         @Override
@@ -170,8 +189,10 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mCalendar.setTimeInMillis(now);
 
             // Draw the background.
-            canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mBackgroundPaint);
-
+            //canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mBackgroundPaint);
+            //Alex
+            canvas.drawBitmap(mBackgroundBitmap, 0, 0, mBackgroundPaint);
+            //Alex
             /*
              * These calculations reflect the rotation in degrees per unit of time, e.g.,
              * 360 / 60 = 6 and 360 / 12 = 30.
